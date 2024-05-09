@@ -13,19 +13,31 @@ input.sort((a, b) => a - b);
 
 let sum = input.reduce((acc, cur) => acc + cur, 0);
 
-for (let i = 0; i < input.length - 2; i++) {
-  for (let j = i + 1; j < input.length - 1; j++) {
-    const temp = sum - input[i] - input[j];
+const combinationFn = (arr, n) => {
+  const result = [];
 
-    if (temp === 100) {
-      const answer = input.filter(
-        (ele) => ele !== input[i] && ele !== input[j]
-      );
+  if (n === 1) {
+    return arr.map((ele) => [ele]);
+  }
 
-      answer.forEach((ele) => {
-        console.log(ele);
-      });
-      return;
-    }
+  arr.forEach((target, idx, origin) => {
+    const newArr = origin.slice(idx + 1);
+
+    const combination = combinationFn(newArr, n - 1);
+
+    const attached = combination.map((ele) => [target, ...ele]);
+    result.push(...attached);
+  });
+  return result;
+};
+
+const combi = combinationFn(input, 2);
+
+while (combi.length) {
+  const [a, b] = combi.shift();
+  if (sum - a - b === 100) {
+    return input
+      .filter((ele) => ele !== a && ele !== b)
+      .forEach((ele) => console.log(ele));
   }
 }
