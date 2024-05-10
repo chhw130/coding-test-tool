@@ -19,6 +19,16 @@ function solution(n, target, data) {
     dp.push(dp[i] + arr[i]);
   }
 
+  dp.shift();
+
+  dp.reverse();
+
+  dp.forEach((ele) => {
+    if (ele === target) {
+      answer++;
+    }
+  });
+
   console.log(dp);
 
   return answer;

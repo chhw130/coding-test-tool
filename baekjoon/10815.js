@@ -12,22 +12,21 @@ const num2 = parseInt(c);
 const secondArr = d.split(" ").map((ele) => parseInt(ele));
 
 function solution(num1, arr1, num2, arr2) {
-  let answer = [];
-
   const sortArr = arr2.slice().sort((a, b) => a - b);
   const memo = Array(num1).fill(0);
 
   let start = 0;
   let end = num2 - 1;
-  let mid = parseInt(num1 / 2);
   let i = 0;
+  let mid = parseInt(num1 / 2);
 
   while (start <= end) {
     if (!arr1.length) break;
+    if (i === num1) break;
+    mid = parseInt((start + end) / 2);
 
     const target = arr1[i];
 
-    console.log(target);
     if (!arr2.includes(target)) {
       i++;
       continue;
@@ -39,11 +38,14 @@ function solution(num1, arr1, num2, arr2) {
       end = mid - 1;
     } else if (target === sortArr[mid]) {
       i++;
+
+      memo[arr2.indexOf(sortArr[mid])] = 1;
       start = 0;
       end = num2 - 1;
-      mid = parseInt(num1 / 2);
     }
   }
+
+  console.log(memo);
 }
 
 solution(num, firstArr, num2, secondArr);
