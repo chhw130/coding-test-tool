@@ -2,6 +2,7 @@ const fs = require("fs");
 // TODO: 제출 시 경로 변환 필수 ("/dev/stdin")
 const filePath =
   process.platform === "linux" ? "/dev/stdin" : __dirname + "/test.txt";
+<<<<<<< HEAD
 const input = fs.readFileSync(filePath).toString().trim().split("\n");
 
 function solution(arr) {
@@ -39,3 +40,21 @@ function solution(arr) {
 }
 
 solution(input.map((ele) => parseInt(ele)));
+=======
+const input = fs
+  .readFileSync(filePath)
+  .toString()
+  .trim()
+  .split("\n")
+  .map((ele) => parseInt(ele));
+
+const calNum = (num) => {
+  for (let i = 0; i < num; i++) {}
+};
+
+function solution(arr) {
+  return;
+}
+
+solution(input);
+>>>>>>> 14bc2c9 (feat)
