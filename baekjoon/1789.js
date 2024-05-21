@@ -4,23 +4,24 @@ const filePath =
   process.platform === "linux" ? "/dev/stdin" : __dirname + "/test.txt";
 const input = fs.readFileSync(filePath).toString().trim().split("\n");
 
-const [num, a, b] = input;
+const num = parseInt(input.shift());
 
-const arrA = a.split(" ").map((ele) => parseInt(ele));
-const arrB = b.split(" ").map((ele) => parseInt(ele));
-
-function solution(n, A, B) {
+function solution(n) {
   let answer = 0;
 
-  const sortA = A.sort((a, b) => a - b);
+  if (n === 1) return ++answer;
 
-  sortA.forEach((ele) => {
-    const maxB = Math.max(...B);
-    B.splice(B.indexOf(maxB), 1);
-    answer += maxB * ele;
-  });
+  const dp = Array(parseInt(Math.sqrt(n))).fill(0);
+
+  for (let i = 1; i < n; i++) {
+    dp[i] = i + dp[i - 1];
+
+    if (n - dp[i] <= i) {
+      return i;
+    }
+  }
 
   return answer;
 }
 
-console.log(solution(num, arrA, arrB));
+console.log(solution(num));

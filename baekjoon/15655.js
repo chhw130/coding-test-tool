@@ -4,12 +4,16 @@ const filePath =
   process.platform === "linux" ? "/dev/stdin" : __dirname + "/test.txt";
 const input = fs.readFileSync(filePath).toString().trim().split("\n");
 
-const [a, b] = input
+const [n, m] = input
   .shift()
   .split(" ")
   .map((ele) => parseInt(ele));
 
-const arr = input[0].split(" ").map((ele) => parseInt(ele));
+const arr = input
+  .shift()
+  .split(" ")
+  .map((ele) => parseInt(ele))
+  .sort((a, b) => a - b);
 
 const combinationFn = (arr, pick) => {
   const results = [];
@@ -25,25 +29,16 @@ const combinationFn = (arr, pick) => {
 
     results.push(...attached);
   });
+
   return results;
 };
 
-function solution(n, target, data) {
-  let answer = 0;
+function solution(x, y, sorted) {
+  const combi = combinationFn(sorted, y);
 
-  for (let i = 1; i <= n; i++) {
-    const combi = combinationFn(data, i);
-
-    combi.forEach((ele) => {
-      const sum = ele.reduce((acu, cur) => acu + cur, 0);
-
-      if (sum === target) {
-        answer++;
-      }
-    });
-  }
-
-  return answer;
+  combi.forEach((ele) => {
+    console.log(ele.join(" "));
+  });
 }
 
-console.log(solution(a, b, arr));
+solution(n, m, arr);

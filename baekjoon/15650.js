@@ -4,15 +4,10 @@ const filePath =
   process.platform === "linux" ? "/dev/stdin" : __dirname + "/test.txt";
 const input = fs.readFileSync(filePath).toString().trim().split("\n");
 
-const [a, b] = input
-  .shift()
-  .split(" ")
-  .map((ele) => parseInt(ele));
-
-const arr = input[0].split(" ").map((ele) => parseInt(ele));
+const [n, m] = input[0].split(" ").map((ele) => parseInt(ele));
 
 const combinationFn = (arr, pick) => {
-  const results = [];
+  const result = [];
 
   if (pick === 1) return arr.map((ele) => [ele]);
 
@@ -23,27 +18,20 @@ const combinationFn = (arr, pick) => {
 
     const attached = combinations.map((ele) => [target, ...ele]);
 
-    results.push(...attached);
+    result.push(...attached);
   });
-  return results;
+
+  return result;
 };
 
-function solution(n, target, data) {
-  let answer = 0;
+function solution(n, c) {
+  const arr = Array.from({ length: n }, (ele, idx) => idx + 1);
 
-  for (let i = 1; i <= n; i++) {
-    const combi = combinationFn(data, i);
+  const combi = combinationFn(arr, c);
 
-    combi.forEach((ele) => {
-      const sum = ele.reduce((acu, cur) => acu + cur, 0);
-
-      if (sum === target) {
-        answer++;
-      }
-    });
-  }
-
-  return answer;
+  combi.forEach((ele) => {
+    console.log(ele.join(" "));
+  });
 }
 
-console.log(solution(a, b, arr));
+solution(n, m);

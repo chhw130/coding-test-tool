@@ -44,3 +44,4 @@ function solution(a, b, arr) {
 }
 
 console.log(solution(x, y, input));
+n;
